@@ -12,26 +12,26 @@ sequenceDiagram
     deactivate server
 
     Note over browser: The browser follows the redirect
-    browser->>server: https://studies.cs.helsinki.fi/exampleapp/notes
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/notes
     activate server
     server-->>browser: HTML document
     deactivate server
 
     Note over browser: Browser determines it needs main.css<br>and main.js to display the document
-    browser->>server: https://studies.cs.helsinki.fi/exampleapp/main.css
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
     activate server
     server-->>browser: Content of main.css
     deactivate server
 
-    browser->>server: https://studies.cs.helsinki.fi/exampleapp/main.js
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.js
     activate server
     server-->>browser: Content of main.js
     deactivate server
 
     Note over browser: Browser executes main.js which<br>(1) requests data.json from the server<br>(2) will call a function when data is received
-    browser->>server: https://studies.cs.helsinki.fi/exampleapp/data.json
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
     activate server
-    server-->>browser: Content of data.json which contain the new note
+    server-->>browser: Content of data.json which contains the new note
     deactivate server
 
     Note over browser: Browser triggers the callback function<br>The function renders the notes present in data.json
