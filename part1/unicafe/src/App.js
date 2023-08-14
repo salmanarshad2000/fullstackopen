@@ -10,12 +10,14 @@ const StatisticLine = ({ text, value }) => {
 }
 
 const Statistics = ({ good, neutral, bad }) => {
-  const total = good + neutral + bad;
+  const total = good + neutral + bad
   if (total === 0) {
     return (
       <div>No feedback given</div>
     )
   } else {
+    const average = (good - bad) / total
+    const positive = 100 * good / total
     return (
       <table>
         <tbody>
@@ -23,8 +25,8 @@ const Statistics = ({ good, neutral, bad }) => {
           <StatisticLine text="neutral" value={neutral} />
           <StatisticLine text="bad" value={bad} />
           <StatisticLine text="all" value={total} />
-          <StatisticLine text="average" value={(good - bad) / total} />
-          <StatisticLine text="positive" value={100 * good / total} />
+          <StatisticLine text="average" value={average.toFixed(2)} />
+          <StatisticLine text="positive" value={positive.toFixed(2) + "%"} />
         </tbody>
       </table>
     )
