@@ -28,8 +28,8 @@ const App = () => {
     copy[selected] += 1
     setVotes(copy)
   }
-  const mostvotes = Math.max(...votes);
-  const mostvoted = votes.findIndex(v => v === mostvotes);
+  const mostVotes = Math.max(...votes);
+  const mostVoted = votes.findIndex(v => v === mostVotes);
   return (
     <div>
       <h1>Anecdote of the day</h1>
@@ -39,7 +39,7 @@ const App = () => {
         <button onClick={handleNext}>next anecdote</button>
       </p>
       <h1>Anecdote with most votes</h1>
-      <Anecdote anecdoteText={anecdotes[mostvoted]} anecdoteVotes={votes[mostvoted]} />
+      <Anecdote anecdoteText={anecdotes[mostVoted]} anecdoteVotes={votes[mostVoted]} />
     </div>
   )
 }
