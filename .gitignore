@@ -1,3 +1,6 @@
+# Visual Studio config directory
+.vs/
+
 # Logs
 logs
 *.log
