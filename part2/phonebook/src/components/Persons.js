@@ -2,7 +2,6 @@ const Persons = ({
   persons,
   searchText
 }) => {
-  console.log(persons, searchText)
   return (
     <div>
       {persons
