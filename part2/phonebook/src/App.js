@@ -25,7 +25,7 @@ const App = () => {
   const handleNewNumberChange = (event) => {
     setNewNumber(event.target.value)
   }
-  const createPerson = (event) => {
+  const handleCreatePerson = (event) => {
     event.preventDefault()
     const selectedPerson = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
     if (selectedPerson) {
@@ -49,6 +49,14 @@ const App = () => {
         })
     }
   }
+  const handleRemovePerson = (event) => {
+    const selectedId = Number(event.target.value)
+    personService
+      .remove(selectedId)
+      .then(() => {
+        setPersons(persons.filter(person => person.id !== selectedId))
+      })
+  }
   return (
     <div>
       <h2>Phonebook</h2>
@@ -62,12 +70,13 @@ const App = () => {
         newNumber={newNumber}
         handleNewNameChange={handleNewNameChange}
         handleNewNumberChange={handleNewNumberChange}
-        createPerson={createPerson}
+        handleCreatePerson={handleCreatePerson}
       />
       <h3>Numbers</h3>
       <Persons
         persons={persons}
         searchText={searchText}
+        handleRemovePerson={handleRemovePerson}
       />
     </div>
   )

@@ -1,12 +1,15 @@
+import Person from './Person'
+
 const Persons = ({
   persons,
-  searchText
+  searchText,
+  handleRemovePerson
 }) => {
   return (
     <div>
       {persons
         .filter(person => searchText === '' || person.name.toLowerCase().includes(searchText.toLowerCase()))
-        .map(person => (<div key={person.name}>{person.name} {person.number}</div>))}
+        .map(person => <Person key={person.id} person={person} handleRemovePerson={handleRemovePerson} />)}
     </div>
   )
 }
