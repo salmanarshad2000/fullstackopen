@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import axios from 'axios'
+import personService from './services/persons'
 import Filter from './components/Filter'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
@@ -10,10 +10,10 @@ const App = () => {
   const [newNumber, setNewNumber] = useState('')
   const [searchText, setSearchText] = useState('')
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
-      .then(response => {
-        setPersons(response.data)
+    personService
+      .getAll()
+      .then(persons => {
+        setPersons(persons)
       })
   }, [])
   const handleSearchTextChange = (event) => {
@@ -27,14 +27,27 @@ const App = () => {
   }
   const createPerson = (event) => {
     event.preventDefault()
-    const duplicate = persons.some(person => person.name.toLowerCase() === newName.toLowerCase())
-    if (duplicate) {
-      alert(`${newName} is already added to phonebook`)
-      return
+    const selectedPerson = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
+    if (selectedPerson) {
+      if (window.confirm(`${newName} is already present in phonebook\n\nUpdate the phone number?`) === false) {
+        return
+      }
+      personService
+        .update(selectedPerson.id, { ...selectedPerson, number: newNumber })
+        .then(updatedPerson => {
+          setPersons(persons.map(person => person.id === selectedPerson.id ? updatedPerson : person))
+          setNewName('')
+          setNewNumber('')
+        })
+    } else {
+      personService
+        .create({ name: newName, number: newNumber })
+        .then(createdPerson => {
+          setPersons(persons.concat(createdPerson))
+          setNewName('')
+          setNewNumber('')
+        })
     }
-    setPersons(persons.concat({ name: newName, number: newNumber }))
-    setNewName('')
-    setNewNumber('')
   }
   return (
     <div>
