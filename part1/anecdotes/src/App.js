@@ -28,8 +28,8 @@ const App = () => {
     copy[selected] += 1
     setVotes(copy)
   }
-  const mostVotes = Math.max(...votes);
-  const mostVoted = votes.findIndex(v => v === mostVotes);
+  const mostVotes = Math.max(...votes)
+  const mostVoted = votes.findIndex(v => v === mostVotes)
   return (
     <div>
       <h1>Anecdote of the day</h1>
