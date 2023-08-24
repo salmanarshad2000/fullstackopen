@@ -1,14 +1,17 @@
 import { useState, useEffect } from 'react'
 import personService from './services/persons'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
+import './index.css'
 
 const App = () => {
   const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [searchText, setSearchText] = useState('')
+  const [notification, setNotification] = useState(null)
   useEffect(() => {
     personService
       .getAll()
@@ -35,26 +38,59 @@ const App = () => {
       personService
         .update(selectedPerson.id, { ...selectedPerson, number: newNumber })
         .then(updatedPerson => {
-          setPersons(persons.map(person => person.id === selectedPerson.id ? updatedPerson : person))
+          setPersons(persons.map(person => person.id !== selectedPerson.id ? person : updatedPerson))
+          setNotification({ error: false, message: `Updated ${newName}` })
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
           setNewName('')
           setNewNumber('')
+        })
+        .catch(error => {
+          setNotification({ error: true, message: `personService.update failed: ${error.message}` })
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
         })
     } else {
       personService
         .create({ name: newName, number: newNumber })
         .then(createdPerson => {
           setPersons(persons.concat(createdPerson))
+          setNotification({ error: false, message: `Created ${newName}` })
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
           setNewName('')
           setNewNumber('')
         })
+        .catch(error => {
+          setNotification({ error: true, message: `personService.create failed: ${error.message}` })
+          setTimeout(() => {
+            setNotification(null)
+          }, 5000)
+        })
     }
   }
-  const handleRemovePerson = (event) => {
-    const selectedId = Number(event.target.value)
+  const handleRemovePerson = (id) => {
+    const selectedPerson = persons.find(person => person.id === id)
+    if (window.confirm(`${selectedPerson.name} will be removed from phonebook\n\nProceed?`) === false) {
+      return
+    }
     personService
-      .remove(selectedId)
+      .remove(selectedPerson.id)
       .then(() => {
-        setPersons(persons.filter(person => person.id !== selectedId))
+        setPersons(persons.filter(person => person.id !== selectedPerson.id))
+        setNotification({ error: false, message: `Removed ${selectedPerson.name}` })
+        setTimeout(() => {
+          setNotification(null)
+        }, 5000)
+      })
+      .catch(error => {
+        setNotification({ error: true, message: `personService.create failed: ${error.message}` })
+        setTimeout(() => {
+          setNotification(null)
+        }, 5000)
       })
   }
   return (
@@ -65,6 +101,7 @@ const App = () => {
         handleSearchTextChange={handleSearchTextChange}
       />
       <h3>Add a new</h3>
+      <Notification notification={notification} />
       <PersonForm
         newName={newName}
         newNumber={newNumber}
