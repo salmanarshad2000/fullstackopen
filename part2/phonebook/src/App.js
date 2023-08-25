@@ -4,7 +4,6 @@ import Filter from './components/Filter'
 import Notification from './components/Notification'
 import PersonForm from './components/PersonForm'
 import Persons from './components/Persons'
-import './index.css'
 
 const App = () => {
   const [persons, setPersons] = useState([])
