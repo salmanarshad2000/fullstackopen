@@ -9,7 +9,9 @@ const Persons = ({
     <div>
       {persons
         .filter(person => searchText === '' || person.name.toLowerCase().includes(searchText.toLowerCase()))
-        .map(person => <Person key={person.id} person={person} handleRemovePerson={handleRemovePerson} />)}
+        .map(person => (
+          <Person key={person.id} person={person} handleRemovePerson={handleRemovePerson} />
+        ))}
     </div>
   )
 }

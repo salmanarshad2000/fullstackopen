@@ -2,7 +2,10 @@ import { useState } from 'react'
 
 const Anecdote = ({ anecdoteText, anecdoteVotes }) => {
   return (
-    <p>{anecdoteText}<br />has {anecdoteVotes} votes</p>
+    <p>
+      {anecdoteText}<br />
+      has {anecdoteVotes} votes
+    </p>
   )
 }
 

@@ -14,7 +14,9 @@ const Country = ({
       </p>
       <h3>Languages</h3>
       <ul>
-        {Object.entries(country.languages).map(([code, name]) => <li key={code}>{name}</li>)}
+        {Object.entries(country.languages).map(([code, name]) => (
+          <li key={code}>{name}</li>
+        ))}
       </ul>
     </div>
   )

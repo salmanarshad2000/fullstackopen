@@ -19,7 +19,11 @@ const Countries = ({
   if (filteredCountries.length > 1) {
     return (
       <ul>
-        {filteredCountries.map(country => <li key={country.cca3}>{country.name.common} <button value={country.name.common} onClick={handleSearchTextChange}>show</button></li>)}
+        {filteredCountries.map(country => (
+          <li key={country.cca3}>
+            {country.name.common} <button value={country.name.common} onClick={handleSearchTextChange}>show</button>
+          </li>
+        ))}
       </ul>
     )
   }
