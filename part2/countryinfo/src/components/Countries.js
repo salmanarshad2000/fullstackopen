@@ -2,7 +2,8 @@ import Country from './Country'
 
 const Countries = ({
   countries,
-  searchText
+  searchText,
+  handleSearchTextChange
 }) => {
   if (countries === null || searchText === '') {
     return null
@@ -15,9 +16,16 @@ const Countries = ({
       </div>
     )
   }
+  if (filteredCountries.length > 1) {
+    return (
+      <ul>
+        {filteredCountries.map(country => <li key={country.cca3}>{country.name.common} <button value={country.name.common} onClick={handleSearchTextChange}>show</button></li>)}
+      </ul>
+    )
+  }
   return (
     <div>
-      {filteredCountries.map(country => <Country key={country.cca3} country={country} />)}
+      <Country country={filteredCountries[0]} />
     </div>
   )
 }

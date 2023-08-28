@@ -25,6 +25,7 @@ const App = () => {
       <Countries
         countries={countries}
         searchText={searchText}
+        handleSearchTextChange={handleSearchTextChange}
       />
     </div>
   )
