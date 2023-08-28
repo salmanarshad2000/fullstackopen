@@ -1,7 +1,8 @@
+import Weather from './Weather'
 const Country = ({
   country
 }) => {
-  console.log(country)
+  
   return (
     <div>
       <h1>
@@ -18,6 +19,7 @@ const Country = ({
           <li key={code}>{name}</li>
         ))}
       </ul>
+      <Weather country={country}/>
     </div>
   )
 }

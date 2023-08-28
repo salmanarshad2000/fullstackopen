@@ -27,11 +27,14 @@ const Countries = ({
       </ul>
     )
   }
-  return (
-    <div>
-      <Country country={filteredCountries[0]} />
-    </div>
-  )
+  if (filteredCountries.length === 1) {
+    return (
+      <div>
+        <Country country={filteredCountries[0]} />
+      </div>
+    )
+  }
+  return null
 }
 
 export default Countries
