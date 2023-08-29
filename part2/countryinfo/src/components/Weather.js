@@ -16,6 +16,7 @@ const Weather = ({
         setWeatherData(data.current_weather)
       })
       .catch(error => {
+        setWeatherData(null)
         console.log(`weatherService.getWeather failed: ${error.message}`)
       })
   }, [cityName, countryName])

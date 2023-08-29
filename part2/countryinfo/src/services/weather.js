@@ -17,9 +17,9 @@ const getWeather = (countryName, cityName) => {
             current_weather: true
           }
         })
-        .then(response => {
-          return response.data
-        })
+    })
+    .then(response => {
+      return response.data
     })
 }
 
