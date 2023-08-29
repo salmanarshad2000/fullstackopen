@@ -1,30 +1,25 @@
 import axios from 'axios'
 
-const getWeather = (country, city) => {
+const getWeather = (countryName, cityName) => {
   return axios
     .get('https://geocoding-api.open-meteo.com/v1/search', {
       params: {
-        name: `${city}, ${country}`
+        name: `${cityName}, ${countryName}`
       }
     })
     .then(response => {
-      console.group('grocoding response')
-      console.log(response)
-      console.groupEnd()
+      const result = response.data.results[0]
       return axios
         .get('https://api.open-meteo.com/v1/forecast', {
           params: {
-            latitude: response.data.results[0].latitude,
-            longitude: response.data.results[0].longitude,
+            latitude: result.latitude,
+            longitude: result.longitude,
             current_weather: true
           }
         })
-    })
-    .then(x=>{
-      console.group("x")
-      console.log(x)
-      console.groupEnd()
-      return x;
+        .then(response => {
+          return response.data
+        })
     })
 }
 

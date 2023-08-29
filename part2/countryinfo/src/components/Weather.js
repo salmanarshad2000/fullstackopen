@@ -1,23 +1,36 @@
-import { useState,useEffect } from 'react'
-import weatherService from '../services/weather';
+import { useState, useEffect } from 'react'
+import weatherService from '../services/weather'
 
 const Weather = ({
-  country
+  countryName,
+  cityName
 }) => {
   const [weatherData, setWeatherData] = useState(null)
   useEffect(() => {
-    if (country.capital instanceof Array) {
-      weatherService
-        .getWeather(country.name.common, country.capital[0])
-        .then(weatherData => {
-          setWeatherData(weatherData)
-        })
+    if (cityName === undefined) {
+      return
     }
-  }, [])
-
-
+    weatherService
+      .getWeather(countryName, cityName)
+      .then(data => {
+        setWeatherData(data.current_weather)
+      })
+      .catch(error => {
+        console.log(`weatherService.getWeather failed: ${error.message}`)
+      })
+  }, [cityName, countryName])
+  if (weatherData === null) {
+    return null
+  }
   return (
-    <h3>Weather</h3>
+    <>
+      <h3>Weather in {cityName}</h3>
+      <ul>
+        <li>temperature: {weatherData.temperature} &deg;C</li>
+        <li>windspeed: {weatherData.windspeed} Km/h</li>
+        <li>winddirection: {weatherData.winddirection}&deg;</li>
+      </ul>
+    </>
   )
 }
 

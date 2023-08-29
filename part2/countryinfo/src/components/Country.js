@@ -1,25 +1,28 @@
 import Weather from './Weather'
+
 const Country = ({
   country
 }) => {
-  
+  if (country === undefined) {
+    return null
+  }
   return (
     <div>
       <h1>
-        {country.name.common} <img src={country.flags.png} style={{ height: "1.5rem" }} />
+        {country.name} <img src={country.flag} style={{ height: "1.5rem" }} />
       </h1>
       <p>
-        Capital: {country.capital instanceof Array ? country.capital.join('; ') : '(unknown)'}<br />
+        Capital: {country.capital.join('; ')}<br />
         Area: {country.area}<br />
         Population: {country.population}<br />
       </p>
       <h3>Languages</h3>
       <ul>
-        {Object.entries(country.languages).map(([code, name]) => (
-          <li key={code}>{name}</li>
+        {country.languages.map(language => (
+          <li key={language}>{language}</li>
         ))}
       </ul>
-      <Weather country={country}/>
+      <Weather countryName={country.name} cityName={country.capital[0]} />
     </div>
   )
 }
