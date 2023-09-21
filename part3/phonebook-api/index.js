@@ -1,7 +1,12 @@
 const express = require("express")
+const morgan = require("morgan")
+
 const app = express()
 
+morgan.token("post-body", (req, res) => JSON.stringify(req.body))
+
 app.use(express.json())
+app.use(morgan(":method :url :status :res[content-length] - :response-time ms :post-body"))
 
 let persons = [
   {
@@ -52,17 +57,17 @@ app.delete("/api/persons/:id", (request, response) => {
 })
 
 app.post("/api/persons", (request, response) => {
-  const body = request.body
-  if (!body.name) {
+  const tmpPerson = request.body
+  if (!tmpPerson.name) {
     response.status(400).json({ error: "name is missing" })
     return
   }
-  if (!body.number) {
+  if (!tmpPerson.number) {
     response.status(400).json({ error: "number is missing" })
     return
   }
-  const dupPerson = persons.find(person => person.name.toLowerCase() === body.name.toLowerCase())
-  if (dupPerson) {
+  const person = persons.find(person => person.name.toLowerCase() === tmpPerson.name.toLowerCase())
+  if (person) {
     response.status(400).json({ error: "name must be unique" })
     return
   }
