@@ -12,3 +12,9 @@ This project is based on `part2\phonebook` project with some changes:
 ## phonebook-app
 
 This project contains the backend code - and - the production build of frontend code (placed in `public_html` directory, served as static content).
+
+## Online Version
+
+The phonebook app is deployed on Google App Engine at the following URL:
+
+https://api-project-842029804006.ew.r.appspot.com/

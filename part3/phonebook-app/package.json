@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "copyui": "pushd ..\\phonebook-frontend && npm run build && popd && rmdir /s /q public_html && xcopy /e ..\\phonebook-frontend\\dist public_html\\",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
