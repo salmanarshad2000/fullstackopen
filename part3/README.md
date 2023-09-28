@@ -17,4 +17,4 @@ This project contains the backend code - and - the production build of frontend 
 
 The phonebook app is deployed on Google App Engine at the following URL:
 
-https://api-project-842029804006.ew.r.appspot.com/
+https://fullstackopen-phonebook-400410.ue.r.appspot.com/
