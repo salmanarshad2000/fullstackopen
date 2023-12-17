@@ -1,13 +1,13 @@
 {
-  "name": "phonebook-api",
-  "version": "1.0.0",
+  "name": "phonebook-app",
+  "version": "0.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "copyui": "pushd ..\\phonebook-frontend && npm run build && popd && rmdir /s /q public_html && xcopy /e ..\\phonebook-frontend\\dist public_html\\",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "copyui": "pushd ..\\phonebook-frontend && npm run build && popd && rmdir /s /q public_html && xcopy /e ..\\phonebook-frontend\\dist public_html\\"
   },
   "author": "",
   "license": "ISC",
@@ -17,7 +17,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
-    "eslint": "^8.49.0",
+    "eslint": "^8.45.0",
     "nodemon": "^3.0.1"
   }
 }
