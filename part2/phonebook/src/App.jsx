@@ -1,97 +1,97 @@
-import { useState, useEffect } from 'react'
-import personService from './services/persons'
-import Filter from './components/Filter'
-import Notification from './components/Notification'
-import PersonForm from './components/PersonForm'
-import Persons from './components/Persons'
+import { useState, useEffect } from "react";
+import personService from "./services/persons";
+import Filter from "./components/Filter";
+import Notification from "./components/Notification";
+import PersonForm from "./components/PersonForm";
+import Persons from "./components/Persons";
 
 const App = () => {
-  const [persons, setPersons] = useState([])
-  const [newName, setNewName] = useState('')
-  const [newNumber, setNewNumber] = useState('')
-  const [searchText, setSearchText] = useState('')
-  const [notification, setNotification] = useState(null)
+  const [persons, setPersons] = useState([]);
+  const [newName, setNewName] = useState("");
+  const [newNumber, setNewNumber] = useState("");
+  const [searchText, setSearchText] = useState("");
+  const [notification, setNotification] = useState(null);
   useEffect(() => {
     personService
       .getAll()
-      .then(persons => {
-        setPersons(persons)
-      })
-  }, [])
+      .then((persons) => {
+        setPersons(persons);
+      });
+  }, []);
   const handleSearchTextChange = (event) => {
-    setSearchText(event.target.value)
-  }
+    setSearchText(event.target.value);
+  };
   const handleNewNameChange = (event) => {
-    setNewName(event.target.value)
-  }
+    setNewName(event.target.value);
+  };
   const handleNewNumberChange = (event) => {
-    setNewNumber(event.target.value)
-  }
+    setNewNumber(event.target.value);
+  };
   const handleCreatePerson = (event) => {
-    event.preventDefault()
-    const selectedPerson = persons.find(person => person.name.toLowerCase() === newName.toLowerCase())
+    event.preventDefault();
+    const selectedPerson = persons.find((person) => person.name.toLowerCase() === newName.toLowerCase());
     if (selectedPerson) {
       if (window.confirm(`${newName} is already present in phonebook\n\nUpdate the phone number?`) === false) {
-        return
+        return;
       }
       personService
         .update(selectedPerson.id, { ...selectedPerson, number: newNumber })
-        .then(updatedPerson => {
-          setPersons(persons.map(person => person.id !== selectedPerson.id ? person : updatedPerson))
-          setNotification({ error: false, message: `Updated ${newName}` })
+        .then((updatedPerson) => {
+          setPersons(persons.map((person) => person.id !== selectedPerson.id ? person : updatedPerson));
+          setNotification({ error: false, message: `Updated ${newName}` });
           setTimeout(() => {
-            setNotification(null)
-          }, 5000)
-          setNewName('')
-          setNewNumber('')
+            setNotification(null);
+          }, 5000);
+          setNewName("");
+          setNewNumber("");
         })
-        .catch(error => {
-          setNotification({ error: true, message: `personService.update failed: ${error.message}` })
+        .catch((error) => {
+          setNotification({ error: true, message: `personService.update failed: ${error.message}` });
           setTimeout(() => {
-            setNotification(null)
-          }, 5000)
-        })
+            setNotification(null);
+          }, 5000);
+        });
     } else {
       personService
         .create({ name: newName, number: newNumber })
-        .then(createdPerson => {
-          setPersons(persons.concat(createdPerson))
-          setNotification({ error: false, message: `Created ${newName}` })
+        .then((createdPerson) => {
+          setPersons(persons.concat(createdPerson));
+          setNotification({ error: false, message: `Created ${newName}` });
           setTimeout(() => {
-            setNotification(null)
-          }, 5000)
-          setNewName('')
-          setNewNumber('')
+            setNotification(null);
+          }, 5000);
+          setNewName("");
+          setNewNumber("");
         })
-        .catch(error => {
-          setNotification({ error: true, message: `personService.create failed: ${error.message}` })
+        .catch((error) => {
+          setNotification({ error: true, message: `personService.create failed: ${error.message}` });
           setTimeout(() => {
-            setNotification(null)
-          }, 5000)
-        })
+            setNotification(null);
+          }, 5000);
+        });
     }
-  }
+  };
   const handleRemovePerson = (id) => {
-    const selectedPerson = persons.find(person => person.id === id)
+    const selectedPerson = persons.find((person) => person.id === id);
     if (window.confirm(`${selectedPerson.name} will be removed from phonebook\n\nProceed?`) === false) {
-      return
+      return;
     }
     personService
       .remove(selectedPerson.id)
       .then(() => {
-        setPersons(persons.filter(person => person.id !== selectedPerson.id))
-        setNotification({ error: false, message: `Removed ${selectedPerson.name}` })
+        setPersons(persons.filter((person) => person.id !== selectedPerson.id));
+        setNotification({ error: false, message: `Removed ${selectedPerson.name}` });
         setTimeout(() => {
-          setNotification(null)
-        }, 5000)
+          setNotification(null);
+        }, 5000);
       })
-      .catch(error => {
-        setNotification({ error: true, message: `personService.create failed: ${error.message}` })
+      .catch((error) => {
+        setNotification({ error: true, message: `personService.create failed: ${error.message}` });
         setTimeout(() => {
-          setNotification(null)
-        }, 5000)
-      })
-  }
+          setNotification(null);
+        }, 5000);
+      });
+  };
   return (
     <div>
       <h2>Phonebook</h2>
@@ -115,7 +115,7 @@ const App = () => {
         handleRemovePerson={handleRemovePerson}
       />
     </div>
-  )
-}
+  );
+};
 
-export default App
+export default App;
