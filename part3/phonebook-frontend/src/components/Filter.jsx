@@ -6,7 +6,7 @@ const Filter = ({
     <div>
       filter shown with <input value={searchText} onChange={handleSearchTextChange} />
     </div>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;

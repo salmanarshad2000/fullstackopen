@@ -6,7 +6,7 @@ const Filter = ({
     <div>
       find countries <input value={searchText} onChange={handleCountryFilter} />
     </div>
-  )
-}
+  );
+};
 
-export default Filter
+export default Filter;

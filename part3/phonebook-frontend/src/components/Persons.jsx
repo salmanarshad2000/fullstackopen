@@ -1,4 +1,4 @@
-import Person from './Person'
+import Person from "./Person";
 
 const Persons = ({
   persons,
@@ -8,12 +8,12 @@ const Persons = ({
   return (
     <div>
       {persons
-        .filter(person => searchText === '' || person.name.toLowerCase().includes(searchText.toLowerCase()))
-        .map(person => (
+        .filter((person) => searchText === "" || person.name.toLowerCase().includes(searchText.toLowerCase()))
+        .map((person) => (
           <Person key={person.id} person={person} handleRemovePerson={handleRemovePerson} />
         ))}
     </div>
-  )
-}
+  );
+};
 
-export default Persons
+export default Persons;

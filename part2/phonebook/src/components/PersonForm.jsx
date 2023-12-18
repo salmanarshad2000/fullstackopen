@@ -17,7 +17,7 @@ const PersonForm = ({
         <button type='submit'>add</button>
       </div>
     </form>
-  )
-}
+  );
+};
 
-export default PersonForm
+export default PersonForm;
